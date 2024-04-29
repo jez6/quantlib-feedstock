@@ -1,17 +1,15 @@
 #!/bin/bash
 
-cmake ${CMAKE_ARGS}                                     \
-     -G Ninja                                           \
-     -DCMAKE_BUILD_TYPE=Release                         \
-     -DCMAKE_INSTALL_PREFIX=$PREFIX                     \
-     -DCMAKE_INSTALL_LIBDIR=lib                         \
-     -DQL_BUILD_EXAMPLES=OFF                            \
-     -DQL_BUILD_BENCHMARK=OFF                           \
-     $SRC_DIR
+mkdir -p build_
+cd build_
 
-cmake install
+cmake ${CMAKE_ARGS}                     \
+     -G Ninja                           \
+     -DCMAKE_BUILD_TYPE=Release         \
+     -DCMAKE_INSTALL_PREFIX=$PREFIX     \
+     -DQL_BUILD_EXAMPLES=OFF            \
+     -DQL_BUILD_BENCHMARK=OFF           \
+     -S ..                              \
+     -B .
 
-# ./autogen.sh
-# ./configure --disable-static CXXFLAGS="-O2 -g0 -Wall -Wno-unknown-pragmas -Werror" --prefix $PREFIX
-# make
-# make install
+cmake --build . -- install
